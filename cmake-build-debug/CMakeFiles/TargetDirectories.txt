@@ -1,0 +1,3 @@
+C:/Users/48570/Desktop/pp/cpp/Invaders/cmake-build-debug/CMakeFiles/Invaders.dir
+C:/Users/48570/Desktop/pp/cpp/Invaders/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/48570/Desktop/pp/cpp/Invaders/cmake-build-debug/CMakeFiles/rebuild_cache.dir
