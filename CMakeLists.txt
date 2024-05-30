@@ -3,4 +3,4 @@ project(Invaders)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Invaders main.cpp)
+add_executable(Invaders src/main.cpp)
