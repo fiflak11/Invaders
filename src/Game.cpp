@@ -19,7 +19,6 @@ void Game::start() {
         }
 
         window.clear();
-        window.draw(shape);
         window.display();
     }
 }
