@@ -21,7 +21,8 @@ void Game::start() {
 Game::Game() {
     window.create(sf::VideoMode(settings.displayResolution[0].first, settings.displayResolution[0].second), "Invaders");
     window.setFramerateLimit(60);
-    player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,20,2,2,2,2);
+    //player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,settings.normalBulletSize,20,2,2,2,2);
+    player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,20,2,2,2,4,3);
 }
 
 void Game::playerMoveAndShoot() {
@@ -32,7 +33,7 @@ void Game::playerMoveAndShoot() {
     else
         player->move('n',settings.displayResolution[0].first);
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
-       playerBullets.push_back(player->shoot(settings.normalBulletSize));
+       playerBullets.push_back(player->shoot());
     }
 }
 

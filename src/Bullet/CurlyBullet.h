@@ -4,9 +4,10 @@
 #include "Bullet.h"
 
 class CurlyBullet : public Bullet{
-    short speed, width;
+    short speed, width, offset=0;
+    bool direction=false;
     public:
-    CurlyBullet();
+    CurlyBullet(sf::Vector2f size, sf::Vector2f pos, int DMG, short s, short w);
     void move() override;
 };
 
