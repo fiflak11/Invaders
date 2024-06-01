@@ -11,6 +11,7 @@ struct Settings{
     std::array<std::string,3> level = {"easy","medium","hard"};
     sf::Vector2f shipSize{50,50};
     sf::Vector2f shipPosition{displayResolution[0].first/2, displayResolution[0].second-shipSize.y-shipSize.y};
+    sf::Vector2f normalBulletSize{3,3};
 };
 
 #endif //INVADERS_SETTINGS_H

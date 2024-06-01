@@ -7,7 +7,7 @@ class NormalBullet : public Bullet{
     short speed;
     float direction;
     public:
-    NormalBullet();
+    NormalBullet(sf::Vector2f size, sf::Vector2f pos, int DMG, short s, float dir);
     void move() override;
 };
 

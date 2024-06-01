@@ -7,10 +7,10 @@ Bullet::Bullet(sf::Vector2f size, int DMG) : dmg(DMG){
     rect.setOrigin(size.x/2, size.y/2);
 }
 
-inline int Bullet::getDmg() {
+int Bullet::getDmg() {
     return dmg;
 }
 
-inline sf::RectangleShape Bullet::getRect() {
+sf::RectangleShape Bullet::getRect() {
     return rect;
 }

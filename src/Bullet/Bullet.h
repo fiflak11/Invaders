@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 
 class Bullet {
+    protected:
     int dmg;
     sf::RectangleShape rect;
     public:

@@ -17,7 +17,7 @@ class Player {
     void getShot(int damage);
     sf::RectangleShape getRect();
     int getHp();
-    virtual std::unique_ptr<Bullet> shoot(){return std::unique_ptr<Bullet>(nullptr);}
+    virtual std::unique_ptr<Bullet> shoot(sf::Vector2f size){return std::unique_ptr<Bullet>(nullptr);}
     virtual void specialAbility(){};
 };
 
