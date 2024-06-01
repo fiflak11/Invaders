@@ -19,6 +19,14 @@ add_executable(Invaders src/main.cpp
         src/Bullet/CurlyBullet.cpp
         src/Bullet/CurlyBullet.h
         src/Bullet/Bomb.cpp
-        src/Bullet/Bomb.h)
+        src/Bullet/Bomb.h
+        src/Player/Player.cpp
+        src/Player/Player.h
+        src/Player/Soldier.cpp
+        src/Player/Soldier.h
+        src/Player/LaserMan.cpp
+        src/Player/LaserMan.h
+        src/Player/Snake.cpp
+        src/Player/Snake.h)
 
 target_link_libraries(Invaders sfml-graphics)
