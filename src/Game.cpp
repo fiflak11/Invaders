@@ -12,8 +12,7 @@ void Game::start() {
     {
         events();
         playerMoveAndShoot();
-        for(auto ptr = playerBullets.begin(); ptr !=playerBullets.end(); ptr++)
-            ptr->get()->move();
+        bulletsMove();
         draw();
     }
 }
@@ -21,8 +20,9 @@ void Game::start() {
 Game::Game() {
     window.create(sf::VideoMode(settings.displayResolution[0].first, settings.displayResolution[0].second), "Invaders");
     window.setFramerateLimit(60);
-    //player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,settings.normalBulletSize,20,2,2,2,2);
-    player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,20,2,2,2,4,3);
+    player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,settings.normalBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed);
+    //player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
+    //player = std::make_unique<LaserMan>(settings.shipSize,settings.shipPosition,settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
 }
 
 void Game::playerMoveAndShoot() {
@@ -52,4 +52,9 @@ void Game::draw(){
         window.draw(ptr->get()->getRect());
     window.draw(player->getRect());
     window.display();
+}
+
+void Game::bulletsMove() {
+    for(auto ptr = playerBullets.begin(); ptr !=playerBullets.end(); ptr++)
+        ptr->get()->move();
 }

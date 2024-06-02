@@ -10,7 +10,6 @@ void CurlyBullet::move() {
         offset--;
     else
         offset++;
-
     if(offset>width || offset<-width)
         direction=!direction;
     rect.move(offset,-speed);

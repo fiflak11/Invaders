@@ -14,3 +14,7 @@ int Bullet::getDmg() {
 sf::RectangleShape Bullet::getRect() {
     return rect;
 }
+
+bool Bullet::isAlive() {
+    return alive;
+}

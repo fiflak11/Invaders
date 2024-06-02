@@ -5,6 +5,7 @@
 
 class Bullet {
     protected:
+    bool alive=true;
     int dmg;
     sf::RectangleShape rect;
     public:
@@ -13,6 +14,7 @@ class Bullet {
     virtual void move(){};
     sf::RectangleShape getRect();
     int getDmg();
+    bool isAlive();
 };
 
 #endif //INVADERS_BULLET_H

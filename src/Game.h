@@ -14,6 +14,7 @@ class Game {
     void playerMoveAndShoot();
     void events();
     void draw();
+    void bulletsMove();
     public:
     Game();
     void start();
