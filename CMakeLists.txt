@@ -29,6 +29,10 @@ add_executable(Invaders src/main.cpp
         src/Player/Snake.cpp
         src/Player/Snake.h
         src/Bullet/Laser.cpp
-        src/Bullet/Laser.h)
+        src/Bullet/Laser.h
+        src/Enemy/Enemy.cpp
+        src/Enemy/Enemy.h
+        src/Enemy/Chicken.cpp
+        src/Enemy/Chicken.h)
 
 target_link_libraries(Invaders sfml-graphics)

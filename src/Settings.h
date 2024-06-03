@@ -21,6 +21,7 @@ struct Settings{
     short laserPlayerTime=10;
     short playerBulletSpeed=4;
     short playerCurlyBulletWidth=4;
+    sf::Vector2f chickenSize{20,20};
 };
 
 #endif //INVADERS_SETTINGS_H
