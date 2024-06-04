@@ -7,6 +7,7 @@
 #include "Bullet/Bullet.h"
 #include "Enemy/Enemy.h"
 #include "Enemy/Chicken.h"
+#include "Enemy/Alien.h"
 #include <memory>
 
 void Game::start() {
@@ -50,7 +51,11 @@ void Game::events() {
 
 void Game::draw(){
     window.clear();
+    for(auto ptr = chickens.begin(); ptr !=chickens.end(); ptr++)
+        window.draw(ptr->get()->getRect());
     for(auto ptr = playerBullets.begin(); ptr !=playerBullets.end(); ptr++)
+        window.draw(ptr->get()->getRect());
+    for(auto ptr = chickenBullets.begin(); ptr !=chickenBullets.end(); ptr++)
         window.draw(ptr->get()->getRect());
     window.draw(player->getRect());
     window.display();
