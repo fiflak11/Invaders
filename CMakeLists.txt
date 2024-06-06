@@ -35,6 +35,8 @@ add_executable(Invaders src/main.cpp
         src/Enemy/Chicken.cpp
         src/Enemy/Chicken.h
         src/Enemy/Alien.cpp
-        src/Enemy/Alien.h)
+        src/Enemy/Alien.h
+        src/Enemy/Rock.cpp
+        src/Enemy/Rock.h)
 
 target_link_libraries(Invaders sfml-graphics)

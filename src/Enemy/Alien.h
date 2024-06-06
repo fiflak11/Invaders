@@ -5,7 +5,7 @@
 
 class Alien : public Enemy{
     short bulletTime, currentShootTime=0;
-    const short shootTime=60;
+    const short shootTime;
     public:
     Alien(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d, short bt, short st);
     void move() override;

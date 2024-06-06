@@ -21,7 +21,26 @@ struct Settings{
     short laserPlayerTime=10;
     short playerBulletSpeed=4;
     short playerCurlyBulletWidth=4;
+    //ROCK
+    sf::Vector2f rockSize{10,10};
+    short rockDmg = 10;
+    short rockSpeed = 4;
+    //chicken
     sf::Vector2f chickenSize{20,20};
+    short chickenHp = 10;
+    short chickenDmg = 10;
+    short chickenBulletSpeed = 4;
+    //big chicken
+    sf::Vector2f bigChickenSize{50,50};
+    short bigChickenHp = 20;
+    short bigChickenDmg = 20;
+    short bigChickenBulletSpeed = 3;
+    //big chicken
+    sf::Vector2f alienSize{10,10};
+    short alienHp = 20;
+    short alienDmg = 20;
+    short alienBulletTime = 3;
+    short alienShootTime = 60;
 };
 
 #endif //INVADERS_SETTINGS_H
