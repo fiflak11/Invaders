@@ -7,4 +7,7 @@ NormalBullet::NormalBullet(sf::Vector2f size, sf::Vector2f pos, int DMG, short s
 
 void NormalBullet::move() {
     rect.move(speed*cos(direction),speed*sin(direction));
+    aliveTime--;
+    if(aliveTime<0)
+        alive=false;
 }

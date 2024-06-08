@@ -4,7 +4,7 @@
 #include "Bullet.h"
 
 class NormalBullet : public Bullet{
-    short speed;
+    short speed, aliveTime=300;
     float direction;
     public:
     NormalBullet(sf::Vector2f size, sf::Vector2f pos, int DMG, short s, float dir);

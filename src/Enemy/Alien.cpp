@@ -1,11 +1,17 @@
 #include "Alien.h"
 #include "../Bullet/Laser.h"
 
-Alien::Alien(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d, short bt, short st) : Enemy(size,pos,bSize,h,d), bulletTime(bt), shootTime(st){}
+Alien::Alien(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d, short bt, short st, sf::Vector2f a, short l) : Enemy(size,pos,bSize,h,d,a), bulletTime(bt), shootTime(st), line(l){}
 
 void Alien::move() {
-    if(!currentShootTime)
-        rect.move(1,0);
+    if(rect.getPosition().x<20.0 || rect.getPosition().x>area.x-20)
+        leftOrRight = !leftOrRight;
+    if(!currentShootTime && rect.getPosition().y<line)
+        rect.move(0,2);
+    else if(!currentShootTime && leftOrRight)
+        rect.move(2,0);
+    else if(!currentShootTime)
+        rect.move(-2,0);
     else
         currentShootTime--;
 }

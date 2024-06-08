@@ -14,13 +14,19 @@ struct Settings{
     sf::Vector2f normalBulletSize{3,3}; //BULLET SIZE
     sf::Vector2f curlyBulletSize{10,10};
     sf::Vector2f laserSize{5,2000};
+    short maxChickensAmount = 20;
+    short maxRocksAmount = 20;
     short playerMaxSpeed=20;
     short playerAcceleration=2;
     short playerHp=100;
     short playerDmg=10;
-    short laserPlayerTime=10;
+    short laserPlayerTime=2;
     short playerBulletSpeed=4;
     short playerCurlyBulletWidth=4;
+    float enemyAppearTime = 0.1;
+    float playerShoot = 0.2;
+    float enemyShoot = 0.1;
+    sf::Vector2f area{1280,400};
     //ROCK
     sf::Vector2f rockSize{10,10};
     short rockDmg = 10;

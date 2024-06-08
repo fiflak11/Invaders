@@ -13,9 +13,11 @@
 void Game::start() {
     while (window.isOpen())
     {
-        addEnemy();
         events();
+        addEnemy();
+        enemyShoot();
         moveEverything();
+        deleteUselessObject();
         draw();
     }
 }
@@ -25,8 +27,32 @@ Game::Game() {
     window.create(sf::VideoMode(settings.displayResolution[0].first, settings.displayResolution[0].second), "Invaders");
     window.setFramerateLimit(60);
     //player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,settings.normalBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed);
-    player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
-    //player = std::make_unique<LaserMan>(settings.shipSize,settings.shipPosition,settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
+    //player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
+    player = std::make_unique<LaserMan>(settings.shipSize,settings.shipPosition,settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
+}
+
+void Game::enemyShoot() {
+    if(enemyShootTimer.getElapsedTime().asSeconds()>settings.enemyShoot){
+        auto ptr = std::next(chickens.begin(),rand()%chickens.size());
+        chickenBullets.push_back(ptr->get()->shoot());
+        enemyShootTimer.restart();
+    }
+}
+
+void Game::deleteUselessObject() {
+    std::vector<std::list<std::unique_ptr<Bullet>>::iterator> pb;
+    for(auto ptr = playerBullets.begin(); ptr!=playerBullets.end(); ptr++)
+        if(!ptr->get()->isAlive())
+           pb.push_back(ptr);
+    for(auto bullet : pb)
+        playerBullets.erase(bullet);
+    std::vector<std::list<std::unique_ptr<Bullet>>::iterator> cb;
+    for(auto ptr = chickenBullets.begin(); ptr!=chickenBullets.end(); ptr++)
+        if(!ptr->get()->isAlive())
+            cb.push_back(ptr);
+    for(auto bullet : cb)
+        chickenBullets.erase(bullet);
+    std::cout<<chickenBullets.size()<<std::endl;
 }
 
 void Game::moveEverything() {
@@ -44,8 +70,9 @@ void Game::playerMoveAndShoot() {
         player->move('l',settings.displayResolution[0].first);
     else
         player->move('n',settings.displayResolution[0].first);
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && playerShootTimer.getElapsedTime().asSeconds()>settings.playerShoot){
        playerBullets.push_back(player->shoot());
+       playerShootTimer.restart();
     }
 }
 
@@ -81,20 +108,27 @@ void Game::moveList(std::list<std::unique_ptr<object>>& l) {
 }
 
 void Game::addEnemy() {
+    if(addEnemyTimer.getElapsedTime().asSeconds()<settings.enemyAppearTime)
+        return;
+    addEnemyTimer.restart();
     short r = rand()%4;
     sf::Vector2f pos{rand()%1000+100,-100};
     switch (r) {
         case 0: // rock
-            rocks.push_front(std::make_unique<Rock>(settings.rockSize,pos,settings.rockDmg,settings.rockSpeed,3.14/2));
+            if(settings.maxRocksAmount>rocks.size())
+                rocks.push_front(std::make_unique<Rock>(settings.rockSize,pos,settings.rockDmg,settings.rockSpeed,3.14/2));
             break;
         case 1: // normal chicken
-            chickens.push_front(std::make_unique<Chicken>(settings.chickenSize,pos,settings.normalBulletSize,settings.chickenHp,settings.chickenDmg,settings.chickenBulletSpeed));
+            if(settings.maxChickensAmount>chickens.size())
+                chickens.push_front(std::make_unique<Chicken>(settings.chickenSize,pos,settings.normalBulletSize,settings.chickenHp,settings.chickenDmg,settings.chickenBulletSpeed,settings.area));
             break;
         case 2: // big chicken
-            chickens.push_front(std::make_unique<Chicken>(settings.bigChickenSize,pos,settings.normalBulletSize,settings.bigChickenHp,settings.bigChickenDmg,settings.bigChickenBulletSpeed));
+            if(settings.maxChickensAmount>chickens.size())
+                chickens.push_front(std::make_unique<Chicken>(settings.bigChickenSize,pos,settings.normalBulletSize,settings.bigChickenHp,settings.bigChickenDmg,settings.bigChickenBulletSpeed,settings.area));
             break;
         case 3: // alien
-            chickens.push_front(std::make_unique<Alien>(settings.alienSize,pos,settings.laserSize,settings.alienHp,settings.alienDmg,settings.alienBulletTime,settings.alienShootTime));
+            if(settings.maxChickensAmount>chickens.size())
+                chickens.push_front(std::make_unique<Alien>(settings.alienSize,pos,settings.laserSize,settings.alienHp,settings.alienDmg,settings.alienBulletTime,settings.alienShootTime,settings.area,rand()%(int)settings.area.y+20));
             break;
     }
 }

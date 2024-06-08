@@ -7,11 +7,12 @@
 
 class Enemy {
     protected:
+    sf::Vector2f area;
     sf::RectangleShape rect;
     int hp, dmg;
     sf::Vector2f bulletSize;
     public:
-    Enemy(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d);
+    Enemy(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d, sf::Vector2f a);
     virtual ~Enemy(){};
     virtual void move(){};
     void getShot(int d);

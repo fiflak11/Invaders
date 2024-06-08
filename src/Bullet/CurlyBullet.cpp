@@ -13,4 +13,7 @@ void CurlyBullet::move() {
     if(offset>width || offset<-width)
         direction=!direction;
     rect.move(offset,-speed);
+    aliveTime--;
+    if(aliveTime<0)
+        alive=false;
 }

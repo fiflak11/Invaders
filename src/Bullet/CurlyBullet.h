@@ -4,7 +4,7 @@
 #include "Bullet.h"
 
 class CurlyBullet : public Bullet{
-    short speed, width, offset=0;
+    short speed, width, offset=0, aliveTime=300;
     bool direction=false;
     public:
     CurlyBullet(sf::Vector2f size, sf::Vector2f pos, int DMG, short s, short w);

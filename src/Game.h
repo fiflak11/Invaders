@@ -9,6 +9,7 @@
 #include "Enemy/Rock.h"
 
 class Game {
+    sf::Clock addEnemyTimer, playerShootTimer, enemyShootTimer;
     sf::RenderWindow window;
     const Settings settings;
     std::unique_ptr<Player> player;
@@ -25,6 +26,8 @@ class Game {
     void moveEverything();
     void draw();
     void addEnemy();
+    void deleteUselessObject();
+    void enemyShoot();
     public:
     Game();
     void start();
