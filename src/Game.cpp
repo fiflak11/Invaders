@@ -18,9 +18,12 @@ void Game::start() {
         enemyShoot();
         moveEverything();
         playerIntersectWithObjects();
+        chickenIntersectWithObjects();
         deleteUselessObject();
         statsUpdate();
         draw();
+        while(player->getHp()<=0)
+            zeroHp();
     }
 }
 
@@ -31,9 +34,64 @@ Game::Game() {
     stats.setPosition(20,670);
     window.create(sf::VideoMode(settings.displayResolution[0].first, settings.displayResolution[0].second), "Invaders");
     window.setFramerateLimit(60);
-    //player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,settings.normalBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed);
-    //player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
-    player = std::make_unique<LaserMan>(settings.shipSize,settings.shipPosition,settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
+    shipChoice();
+}
+
+void Game::zeroHp() {
+    chickens.clear();
+    rocks.clear();
+    playerBullets.clear();
+    chickenBullets.clear();
+    points=0;
+    sf::Text restart;
+    restart.setFont(latoBlack);
+    restart.setString("RESTART");
+    restart.setPosition(500,300);
+    auto pos = restart.getGlobalBounds();
+    while(player->getHp()<0){
+        events();
+        window.clear();
+        window.draw(stats);
+        sf::Mouse e;
+        auto w = sf::Mouse::getPosition(window);
+        window.draw(restart);
+        window.display();
+        if(e.isButtonPressed(sf::Mouse::Left) && pos.contains(w.x,w.y)){
+            shipChoice();
+            break;
+        }
+    }
+}
+
+void Game::shipChoice(){
+    std::cout<<"CIPA";
+    auto player1 = std::make_unique<Soldier>(settings.shipSize,sf::Vector2f(200,350),settings.normalBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed);
+    auto player2 = std::make_unique<Snake>(settings.shipSize,sf::Vector2f(600,350),settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
+    auto player3 = std::make_unique<LaserMan>(settings.shipSize,sf::Vector2f(1000,350),settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
+    auto rectp1 = player1->getRect().getGlobalBounds();
+    auto rectp2 = player2->getRect().getGlobalBounds();
+    auto rectp3 = player3->getRect().getGlobalBounds();
+    while(true){
+        events();
+        window.clear();
+        window.draw(player1->getRect());
+        window.draw(player2->getRect());
+        window.draw(player3->getRect());
+        auto w = sf::Mouse::getPosition(window);
+        sf::Mouse e;
+        if(e.isButtonPressed(sf::Mouse::Left))
+        {
+            if (rectp1.contains(w.x, w.y))
+                player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,settings.normalBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed);
+            else if (rectp2.contains(w.x, w.y))
+                player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
+            else if (rectp3.contains(w.x, w.y))
+                player = std::make_unique<LaserMan>(settings.shipSize,settings.shipPosition,settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
+            if(player != nullptr && player->getHp()>0)
+                break;
+        }
+        window.display();
+    }
 }
 
 void Game::playerIntersectWithObjects(){
@@ -55,8 +113,28 @@ void Game::playerIntersectWithObjects(){
         rocks.erase(bullet);
 }
 
+void Game::chickenIntersectWithObjects() {
+    std::vector<decltype(playerBullets.begin())> pb;
+    std::vector<decltype(chickens.begin())> c;
+    for(auto ptr1 = playerBullets.begin(); ptr1!=playerBullets.end(); ptr1++){
+        for(auto ptr2 = chickens.begin(); ptr2!=chickens.end(); ptr2++){
+            if(ptr1->get()->getRect().getGlobalBounds().intersects(ptr2->get()->getRect().getGlobalBounds())){
+                pb.push_back(ptr1);
+                ptr2->get()->getShot(ptr1->get()->getDmg());
+                if(ptr2->get()->getHp()<=0)
+                    c.push_back(ptr2);
+            }
+        }
+    }
+    for(auto x : pb)
+        playerBullets.erase(x);
+    for(auto x : c)
+        chickens.erase(x);
+    points+=c.size()*10;
+}
+
 void Game::statsUpdate() {
-    stats.setString("HP: " + std::to_string(player->getHp()) + "/" +std::to_string(player->maxHp));
+    stats.setString("HP: " + std::to_string(player->getHp()) + "/" +std::to_string(player->maxHp)+"   POINTS: "+std::to_string(points));
 }
 
 void Game::enemyShoot() {
@@ -137,6 +215,8 @@ void Game::deleteObjects(std::list<std::unique_ptr<object>>& l){
 }
 
 void Game::addEnemy() {
+    //zadbaj o laser
+
     if(addEnemyTimer.getElapsedTime().asSeconds()<settings.enemyAppearTime)
         return;
     addEnemyTimer.restart();

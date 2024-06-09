@@ -1,7 +1,9 @@
 #include "Alien.h"
 #include "../Bullet/Laser.h"
 
-Alien::Alien(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d, short bt, short st, sf::Vector2f a, short l) : Enemy(size,pos,bSize,h,d,a), bulletTime(bt), shootTime(st), line(l){}
+Alien::Alien(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d, short bt, short st, sf::Vector2f a, short l) : Enemy(size,pos,bSize,h,d,a), bulletTime(bt), shootTime(st), line(l){
+    rect.setFillColor(sf::Color::Yellow);
+}
 
 void Alien::move() {
     if(rect.getPosition().x<20.0 || rect.getPosition().x>area.x-20)

@@ -5,6 +5,7 @@ Rock::Rock(sf::Vector2f size, sf::Vector2f pos, int d, short s, float dir) : dmg
     rect.setPosition(pos);
     rect.setSize(size);
     rect.setOrigin(size.x/2,size.y/2);
+    rect.setFillColor(sf::Color(100,100,100));
 }
 
 void Rock::move() {

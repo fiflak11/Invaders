@@ -12,6 +12,7 @@ class Game {
     sf::Clock addEnemyTimer, playerShootTimer, enemyShootTimer;
     sf::RenderWindow window;
     const Settings settings;
+    long long points=0;
     sf::Font latoBlack;
     sf::Text stats;
     std::unique_ptr<Player> player;
@@ -34,6 +35,9 @@ class Game {
     void deleteUselessObject();
     void enemyShoot();
     void playerIntersectWithObjects();
+    void chickenIntersectWithObjects();
+    void shipChoice();
+    void zeroHp();
     public:
     Game();
     void start();

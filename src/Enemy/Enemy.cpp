@@ -4,6 +4,7 @@ Enemy::Enemy(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int
     rect.setPosition(pos);
     rect.setSize(size);
     rect.setOrigin(size.x/2, size.y/2);
+    rect.setFillColor(sf::Color::Magenta);
 }
 
 void Enemy::getShot(int d) {

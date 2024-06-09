@@ -15,7 +15,7 @@ struct Settings{
     sf::Vector2f curlyBulletSize{10,10};
     sf::Vector2f laserSize{5,2000};
     short maxChickensAmount = 10;
-    short maxRocksAmount = 20;
+    short maxRocksAmount = 10;
     short playerMaxSpeed=20;
     short playerAcceleration=2;
     short playerHp=100;
@@ -24,28 +24,28 @@ struct Settings{
     short playerBulletSpeed=4;
     short playerCurlyBulletWidth=4;
     float enemyAppearTime = 0.1;
-    float playerShoot = 0.2;
-    float enemyShoot = 0.1;
+    float playerShoot = 0.5;
+    float enemyShoot = 0.7;
     sf::Vector2f area{1280,400};
     //ROCK
     sf::Vector2f rockSize{10,10};
-    short rockDmg = 5;
+    short rockDmg = 30;
     short rockSpeed = 4;
     //chicken
-    sf::Vector2f chickenSize{20,20};
+    sf::Vector2f chickenSize{35,35};
     short chickenHp = 10;
-    short chickenDmg = 1;
+    short chickenDmg = 10;
     short chickenBulletSpeed = 4;
     //big chicken
     sf::Vector2f bigChickenSize{50,50};
     short bigChickenHp = 20;
-    short bigChickenDmg = 2;
+    short bigChickenDmg = 20;
     short bigChickenBulletSpeed = 3;
     //big chicken
-    sf::Vector2f alienSize{10,10};
-    short alienHp = 20;
-    short alienDmg = 2;
-    short alienBulletTime = 3;
+    sf::Vector2f alienSize{25,25};
+    short alienHp = 1;
+    short alienDmg = 5;
+    short alienBulletTime = 40;
     short alienShootTime = 60;
 };
 

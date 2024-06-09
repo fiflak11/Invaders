@@ -4,12 +4,13 @@
 
 Chicken::Chicken(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, int h, int d, short bs, sf::Vector2f a) : Enemy(size,pos,bSize,h,d,a), bulletSpeed(bs){
     srand(time(NULL));
+    rect.setFillColor(sf::Color::Red);
     currentDestination.x=rand()%(int)area.x;
     currentDestination.x=rand()%(int)area.y;
 }
 
 void Chicken::move() {
-    short speed = 10;
+    short speed = 3;
     if(abs(rect.getPosition().x-currentDestination.x)<2*speed && abs(rect.getPosition().y-currentDestination.y)<2*speed){
         currentDestination.x=rand()%(int)area.x;
         currentDestination.y=rand()%(int)area.y;
