@@ -1,17 +1,17 @@
 #include "Player.h"
 #include "SFML/Graphics.hpp"
 
-Player::Player(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, short pms, short acc, int h, int d) : playerMaxSpeed(pms), acceleration(acc), hp(h), dmg(d), bulletSize(bSize){
+Player::Player(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, short pms, short acc, int h, int d) : playerMaxSpeed(pms), acceleration(acc), hp(h), dmg(d), bulletSize(bSize), maxHp(h){
     rect.setSize(size);
     rect.setOrigin(size.x/2, size.y/2);
     rect.setPosition(pos);
 }
 
-inline void Player::getShot(int damage) {
+void Player::getShot(int damage) {
     hp-=damage;
 }
 
-inline int Player::getHp() {
+int Player::getHp() {
     return hp;
 }
 

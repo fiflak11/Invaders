@@ -12,6 +12,8 @@ class Game {
     sf::Clock addEnemyTimer, playerShootTimer, enemyShootTimer;
     sf::RenderWindow window;
     const Settings settings;
+    sf::Font latoBlack;
+    sf::Text stats;
     std::unique_ptr<Player> player;
     std::list<std::unique_ptr<Enemy>> chickens;
     std::list<std::unique_ptr<Rock>> rocks;
@@ -25,11 +27,13 @@ class Game {
     void moveList(std::list<std::unique_ptr<object>>& l); //move list of objects
     template<typename object>
     void deleteObjects(std::list<std::unique_ptr<object>>& l); //delete irrelevant objects
+    void statsUpdate();
     void moveEverything();
     void draw();
     void addEnemy();
     void deleteUselessObject();
     void enemyShoot();
+    void playerIntersectWithObjects();
     public:
     Game();
     void start();

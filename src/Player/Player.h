@@ -12,6 +12,7 @@ class Player {
     int hp, dmg;
     sf::Vector2f bulletSize;
     public:
+    short maxHp;
     Player(sf::Vector2f size, sf::Vector2f pos, sf::Vector2f bSize, short pms, short acc, int h, int d);
     virtual ~Player(){};
     void move(char,int);

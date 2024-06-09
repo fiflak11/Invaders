@@ -17,18 +17,46 @@ void Game::start() {
         addEnemy();
         enemyShoot();
         moveEverything();
+        playerIntersectWithObjects();
         deleteUselessObject();
+        statsUpdate();
         draw();
     }
 }
 
 Game::Game() {
     srand(time(NULL));
+    latoBlack.loadFromFile("../Fonts/Lato-Black.ttf");
+    stats.setFont(latoBlack);
+    stats.setPosition(20,670);
     window.create(sf::VideoMode(settings.displayResolution[0].first, settings.displayResolution[0].second), "Invaders");
     window.setFramerateLimit(60);
     //player = std::make_unique<Soldier>(settings.shipSize,settings.shipPosition,settings.normalBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed);
     //player = std::make_unique<Snake>(settings.shipSize,settings.shipPosition,settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
     player = std::make_unique<LaserMan>(settings.shipSize,settings.shipPosition,settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
+}
+
+void Game::playerIntersectWithObjects(){
+    std::vector<decltype(chickenBullets.begin())> cb;
+    for(auto ptr = chickenBullets.begin(); ptr!=chickenBullets.end(); ptr++)
+        if(player->getRect().getGlobalBounds().intersects(ptr->get()->getRect().getGlobalBounds())){
+            player->getShot(ptr->get()->getDmg());
+            cb.push_back(ptr);
+        }
+    for(auto bullet : cb)
+        chickenBullets.erase(bullet);
+    std::vector<decltype(rocks.begin())> r;
+    for(auto ptr = rocks.begin(); ptr!=rocks.end(); ptr++)
+        if(player->getRect().getGlobalBounds().intersects(ptr->get()->getRect().getGlobalBounds())){
+            player->getShot(ptr->get()->getDmg());
+            r.push_back(ptr);
+        }
+    for(auto bullet : r)
+        rocks.erase(bullet);
+}
+
+void Game::statsUpdate() {
+    stats.setString("HP: " + std::to_string(player->getHp()) + "/" +std::to_string(player->maxHp));
 }
 
 void Game::enemyShoot() {
@@ -82,6 +110,7 @@ void Game::draw(){
     drawList<Rock>(rocks);
     drawList<Enemy>(chickens);
     window.draw(player->getRect());
+    window.draw(stats);
     window.display();
 }
 
