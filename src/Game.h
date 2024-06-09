@@ -20,11 +20,11 @@ class Game {
     void playerMoveAndShoot();
     void events();
     template<typename object>
-    void drawList(std::list<std::unique_ptr<object>>& l); //draw list of object
+    void drawList(std::list<std::unique_ptr<object>>& l); //draw list of objects
     template<typename object>
-    void moveList(std::list<std::unique_ptr<object>>& l); //move list of object
+    void moveList(std::list<std::unique_ptr<object>>& l); //move list of objects
     template<typename object>
-    void deleteObjects(std::list<std::unique_ptr<object>>& l);
+    void deleteObjects(std::list<std::unique_ptr<object>>& l); //delete irrelevant objects
     void moveEverything();
     void draw();
     void addEnemy();

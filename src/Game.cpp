@@ -43,10 +43,6 @@ void Game::deleteUselessObject() {
     deleteObjects<Bullet>(playerBullets);
     deleteObjects<Bullet>(chickenBullets);
     deleteObjects<Rock>(rocks);
-    std::cout<<chickenBullets.size()<<" ";
-    std::cout<<playerBullets.size()<<" ";
-    std::cout<<rocks.size()<<std::endl;
-
 }
 
 void Game::moveEverything() {
