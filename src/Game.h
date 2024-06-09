@@ -22,7 +22,9 @@ class Game {
     template<typename object>
     void drawList(std::list<std::unique_ptr<object>>& l); //draw list of object
     template<typename object>
-    void moveList(std::list<std::unique_ptr<object>>& l); //draw list of object
+    void moveList(std::list<std::unique_ptr<object>>& l); //move list of object
+    template<typename object>
+    void deleteObjects(std::list<std::unique_ptr<object>>& l);
     void moveEverything();
     void draw();
     void addEnemy();

@@ -40,19 +40,13 @@ void Game::enemyShoot() {
 }
 
 void Game::deleteUselessObject() {
-    std::vector<std::list<std::unique_ptr<Bullet>>::iterator> pb;
-    for(auto ptr = playerBullets.begin(); ptr!=playerBullets.end(); ptr++)
-        if(!ptr->get()->isAlive())
-           pb.push_back(ptr);
-    for(auto bullet : pb)
-        playerBullets.erase(bullet);
-    std::vector<std::list<std::unique_ptr<Bullet>>::iterator> cb;
-    for(auto ptr = chickenBullets.begin(); ptr!=chickenBullets.end(); ptr++)
-        if(!ptr->get()->isAlive())
-            cb.push_back(ptr);
-    for(auto bullet : cb)
-        chickenBullets.erase(bullet);
-    std::cout<<chickenBullets.size()<<std::endl;
+    deleteObjects<Bullet>(playerBullets);
+    deleteObjects<Bullet>(chickenBullets);
+    deleteObjects<Rock>(rocks);
+    std::cout<<chickenBullets.size()<<" ";
+    std::cout<<playerBullets.size()<<" ";
+    std::cout<<rocks.size()<<std::endl;
+
 }
 
 void Game::moveEverything() {
@@ -105,6 +99,16 @@ template<typename object>
 void Game::moveList(std::list<std::unique_ptr<object>>& l) {
     for(auto ptr = l.begin(); ptr !=l.end(); ptr++)
         ptr->get()->move();
+}
+
+template<typename object>
+void Game::deleteObjects(std::list<std::unique_ptr<object>>& l){
+    std::vector<decltype(l.begin())> pb; //delete player bullets
+    for(auto ptr = l.begin(); ptr!=l.end(); ptr++)
+        if(!ptr->get()->isAlive())
+            pb.push_back(ptr);
+    for(auto bullet : pb)
+        l.erase(bullet);
 }
 
 void Game::addEnemy() {

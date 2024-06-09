@@ -9,6 +9,9 @@ Rock::Rock(sf::Vector2f size, sf::Vector2f pos, int d, short s, float dir) : dmg
 
 void Rock::move() {
     rect.move(speed*cos(direction),speed*sin(direction));
+    timeAlive--;
+    if(timeAlive<0)
+        alive=false;
 }
 
 int Rock::getDmg() {
@@ -17,4 +20,8 @@ int Rock::getDmg() {
 
 sf::RectangleShape Rock::getRect() {
     return rect;
+}
+
+bool Rock::isAlive() {
+    return alive;
 }
