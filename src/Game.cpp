@@ -64,7 +64,6 @@ void Game::zeroHp() {
 }
 
 void Game::shipChoice(){
-    std::cout<<"CIPA";
     auto player1 = std::make_unique<Soldier>(settings.shipSize,sf::Vector2f(200,350),settings.normalBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed);
     auto player2 = std::make_unique<Snake>(settings.shipSize,sf::Vector2f(600,350),settings.curlyBulletSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.playerBulletSpeed,settings.playerCurlyBulletWidth);
     auto player3 = std::make_unique<LaserMan>(settings.shipSize,sf::Vector2f(1000,350),settings.laserSize,settings.playerMaxSpeed,settings.playerAcceleration,settings.playerHp,settings.playerDmg,settings.laserPlayerTime);
@@ -221,7 +220,8 @@ void Game::addEnemy() {
         return;
     addEnemyTimer.restart();
     short r = rand()%4;
-    sf::Vector2f pos{rand()%1000+100,-100};
+    float rr = rand()%1000;
+    sf::Vector2f pos{rr+100,-100};
     switch (r) {
         case 0: // rock
             if(settings.maxRocksAmount>rocks.size())
